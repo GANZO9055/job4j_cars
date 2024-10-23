@@ -21,6 +21,15 @@
         <relativePath/>
     </parent>
 
+    <profiles>
+        <profile>
+            <id>production</id>
+            <properties>
+                <liquibase.config>db/liquibase.properties</liquibase.config>
+            </properties>
+        </profile>
+    </profiles>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -35,14 +44,36 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.liquibase</groupId>
-            <artifactId>liquibase-core</artifactId>
-            <version>4.28.0</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>42.5.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-dbcp2</artifactId>
+            <version>2.9.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.sql2o</groupId>
+            <artifactId>sql2o</artifactId>
+            <version>1.6.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>2.1.214</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>4.28.0</version>
         </dependency>
     </dependencies>
 
@@ -55,15 +86,6 @@
                 <configuration>
                     <propertyFile>db/liquibase.properties</propertyFile>
                 </configuration>
-                <executions>
-                    <execution>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>clearCheckSums</goal>
-                            <goal>update</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
