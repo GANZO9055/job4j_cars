@@ -6,6 +6,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import ru.job4j.cars.model.User;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +27,8 @@ public class UserRepository {
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
+        } finally {
+            session.close();
         }
         return user;
     }
@@ -45,6 +48,8 @@ public class UserRepository {
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
+        } finally {
+            session.close();
         }
     }
 
@@ -62,6 +67,8 @@ public class UserRepository {
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
+        } finally {
+            session.close();
         }
     }
 
@@ -71,8 +78,17 @@ public class UserRepository {
      */
     public List<User> findAllOrderById() {
         Session session = sf.openSession();
-        Query<User> query = session.createQuery("from User ORDER BY id", User.class);
-        return query.list();
+        List<User> result = new ArrayList<>();
+        try {
+            session.beginTransaction();
+            result = session.createQuery("from User ORDER BY id", User.class).list();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+        return result;
     }
 
     /**
@@ -81,9 +97,19 @@ public class UserRepository {
      */
     public Optional<User> findById(int userId) {
         Session session = sf.openSession();
-        Query<User> query = session.createQuery("from User WHERE id = :id", User.class);
-        query.setParameter("id", userId);
-        return Optional.ofNullable(query.uniqueResult());
+        Optional<User> result = Optional.empty();
+        try {
+            session.beginTransaction();
+            Query<User> query = session.createQuery("from User WHERE id = :id", User.class)
+                    .setParameter("id", userId);
+            result = query.uniqueResultOptional();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+        return result;
     }
 
     /**
@@ -93,9 +119,19 @@ public class UserRepository {
      */
     public List<User> findByLikeLogin(String key) {
         Session session = sf.openSession();
-        Query<User> query = session.createQuery("from User WHERE login LIKE :login", User.class);
-        query.setParameter("login", String.format("%%%s%%", key));
-        return query.list();
+        List<User> result = new ArrayList<>();
+        try {
+            session.beginTransaction();
+            result = session.createQuery("from User WHERE login LIKE :login", User.class)
+                    .setParameter("login", String.format("%%%s%%", key))
+                    .list();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+        return result;
     }
 
     /**
@@ -105,8 +141,18 @@ public class UserRepository {
      */
     public Optional<User> findByLogin(String login) {
         Session session = sf.openSession();
-        Query<User> query = session.createQuery("from User WHERE login = :login", User.class);
-        query.setParameter("login", login);
-        return Optional.ofNullable(query.uniqueResult());
+        Optional<User> result = Optional.empty();
+        try {
+            session.beginTransaction();
+            result = session.createQuery("from User WHERE login = :login", User.class)
+                    .setParameter("login", login)
+                    .uniqueResultOptional();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+        return result;
     }
 }
