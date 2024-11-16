@@ -11,22 +11,22 @@ import java.util.Set;
 @Table(name = "cars")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Car {
-    
+
     @Id
     @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String name;
-
+    
     @ManyToOne
     @JoinColumn(name = "engine_id", foreignKey = @ForeignKey(name = "ENGINE_ID_FK"))
     private Engine engine;
-
+    
     @ManyToOne
     @JoinColumn(name = "owner_id", foreignKey = @ForeignKey(name = "ENGINE_ID_FK"))
     private Owner owner;
-
+    
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "history_owners",

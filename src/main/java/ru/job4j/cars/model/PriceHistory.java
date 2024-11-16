@@ -15,10 +15,12 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "PRICE_HISTORY")
 public class PriceHistory {
+
     @Id
     @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private int before;
     private int after;
     private LocalDateTime created;

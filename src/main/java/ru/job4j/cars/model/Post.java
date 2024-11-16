@@ -11,14 +11,18 @@ import java.util.List;
 @Table(name = "auto_post")
 @Data
 public class Post {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String description;
     private LocalDateTime created;
+
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "auto_post_id")
     private List<PriceHistory> priceHistories = new ArrayList<>();
+
     @ManyToMany
     @JoinTable(
             name = "participates",
