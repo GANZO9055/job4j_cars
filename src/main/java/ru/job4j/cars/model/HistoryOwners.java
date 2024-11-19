@@ -7,22 +7,24 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "cars")
+@Table(name = "history_owners")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Car {
+public class HistoryOwners {
 
     @Id
     @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String name;
-    
     @ManyToOne
-    @JoinColumn(name = "engine_id", foreignKey = @ForeignKey(name = "ENGINE_ID_FK"))
-    private Engine engine;
-    
+    @JoinColumn(name = "car_id")
+    private int carId;
+
     @ManyToOne
-    @JoinColumn(name = "owner_id", foreignKey = @ForeignKey(name = "ENGINE_ID_FK"))
-    private Owner owner;
+    @JoinColumn(name = "owner_id")
+    private int ownerId;
+
+    @ManyToOne
+    @JoinColumn(name = "history_id")
+    private int historyId;
 }
