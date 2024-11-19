@@ -17,14 +17,14 @@ public class HistoryOwners {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "car_id")
-    private int carId;
+    @JoinColumn(name = "car_id", foreignKey = @ForeignKey(name = "ENGINE_ID_FK"))
+    private Car car;
 
     @ManyToOne
-    @JoinColumn(name = "owner_id")
-    private int ownerId;
+    @JoinColumn(name = "owner_id", foreignKey = @ForeignKey(name = "ENGINE_ID_FK"))
+    private Owner owner;
 
     @ManyToOne
-    @JoinColumn(name = "history_id")
-    private int historyId;
+    @JoinColumn(name = "history_id", foreignKey = @ForeignKey(name = "ENGINE_ID_FK"))
+    private History history;
 }
