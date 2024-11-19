@@ -17,6 +17,10 @@ public class Car {
     private int id;
 
     private String name;
+
+    @ManyToOne
+    @JoinColumn(name = "brand_id", foreignKey = @ForeignKey(name = "ENGINE_ID_FK"))
+    private Brand brand;
     
     @ManyToOne
     @JoinColumn(name = "engine_id", foreignKey = @ForeignKey(name = "ENGINE_ID_FK"))
