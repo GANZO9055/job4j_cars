@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @Entity
@@ -29,4 +30,7 @@ public class Car {
     @ManyToOne
     @JoinColumn(name = "owner_id", foreignKey = @ForeignKey(name = "ENGINE_ID_FK"))
     private Owner owner;
+
+    @OneToMany(mappedBy = "cars")
+    private Set<HistoryOwners> historyOwners;
 }
