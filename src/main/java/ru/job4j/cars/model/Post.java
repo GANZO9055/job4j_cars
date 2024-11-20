@@ -31,9 +31,9 @@ public class Post {
     )
     private List<User> participates = new ArrayList<>();
 
-    @ManyToOne()
-    @JoinColumn(name = "file_id")
-    private File postFile;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "file_post_id")
+    private List<File> postFile = new ArrayList<>();
 
     @ManyToOne()
     @JoinColumn(name = "car_id")

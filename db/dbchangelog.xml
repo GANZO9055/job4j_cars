@@ -24,4 +24,6 @@
     <include file="scripts/017_ddl_alter_table_cars.sql" relativeToChangelogFile="true"/>
     <include file="scripts/018_ddl_alter_table_drop_history_id.sql" relativeToChangelogFile="true"/>
     <include file="scripts/019_ddl_alter_add_column_history_owners.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/020_ddl_alter_add_column_files.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/021_ddl_alter_auto_post_drop_column_file_id.sql" relativeToChangelogFile="true"/>
 </databaseChangeLog>
